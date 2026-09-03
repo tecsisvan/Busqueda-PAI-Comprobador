@@ -24,7 +24,7 @@ jobs:
           pip install pyinstaller
 
       - name: Compilar ejecutable
-        run: pyinstaller --onefile --windowed --name Busqueda Busqueda.py
+        run: pyinstaller --onefile --windowed --name Busqueda --collect-all selenium --collect-all trio --collect-all trio_websocket --collect-all outcome --collect-all wsproto Busqueda.py
 
       - name: Guardar el ejecutable
         uses: actions/upload-artifact@v4
