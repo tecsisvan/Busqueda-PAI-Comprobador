@@ -1,0 +1,16 @@
+[build]
+  # El sitio es estático: no hay nada que compilar.
+  publish = "web"
+  command = ""
+
+[[edge_functions]]
+  function = "auth"
+  path = "/*"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    X-Robots-Tag = "noindex, nofollow"

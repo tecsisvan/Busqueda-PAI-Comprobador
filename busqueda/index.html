@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sistema de Consulta PAI / ADRES — Subred Sur</title>
+<style>
+  :root {
+    --azul:#1a73e8; --azul-osc:#1558b0; --naranja:#e65100; --morado:#6a1b9a;
+    --verde:#2e7d32; --gris:#f0f4f8; --texto:#212121; --tenue:#666;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--gris); color:var(--texto);
+         font-family:"Segoe UI",system-ui,sans-serif; line-height:1.6; }
+  header { background:var(--azul); color:#fff; padding:34px 20px; text-align:center; }
+  header h1 { margin:0; font-size:26px; }
+  header p { margin:8px 0 0; color:#c8d8f8; font-size:14px; }
+  header .salir { position:absolute; top:16px; right:20px; color:#c8d8f8;
+                  font-size:12px; text-decoration:none; }
+  header .salir:hover { color:#fff; }
+  main { max-width:860px; margin:0 auto; padding:28px 20px 60px; }
+  .tarjeta { background:#fff; border-radius:12px; padding:26px;
+             box-shadow:0 2px 12px rgba(0,0,0,.07); margin-bottom:22px; }
+  h2 { margin:0 0 14px; font-size:18px; color:var(--azul-osc); }
+  .descarga { text-align:center; }
+  .boton { display:inline-block; background:var(--verde); color:#fff;
+           padding:15px 34px; border-radius:9px; text-decoration:none;
+           font-weight:700; font-size:16px; }
+  .boton:hover { background:#1b5e20; }
+  .version { margin-top:10px; font-size:12px; color:var(--tenue); }
+  ol { padding-left:20px; margin:0; }
+  ol li { margin-bottom:10px; }
+  code { background:#eef2f7; padding:2px 6px; border-radius:4px;
+         font-family:Consolas,monospace; font-size:13px; }
+  .modulos { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+             gap:14px; }
+  .modulo { border:1px solid #e0e6ee; border-radius:9px; padding:16px; }
+  .modulo h3 { margin:0 0 6px; font-size:15px; }
+  .modulo p { margin:0; font-size:13px; color:var(--tenue); }
+  .m1 { border-top:4px solid var(--azul); }
+  .m2 { border-top:4px solid var(--naranja); }
+  .m3 { border-top:4px solid var(--morado); }
+  .aviso { background:#fff8e1; border-left:4px solid #f9a825; padding:16px 18px;
+           border-radius:0 9px 9px 0; font-size:14px; }
+  footer { text-align:center; padding:22px; font-size:12px; color:var(--tenue); }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="salir" href="/salir">Cerrar sesión</a>
+  <h1>🏥 Sistema de Consulta PAI / ADRES</h1>
+  <p>Subred Integrada de Servicios de Salud Sur E.S.E. — SISVAN</p>
+</header>
+
+<main>
+
+  <section class="tarjeta descarga">
+    <h2>Descargar la aplicación</h2>
+    <p>Windows · no requiere instalar Python ni chromedriver</p>
+    <a class="boton" href="/descargas/Busqueda.exe" download>⬇  Descargar Busqueda.exe</a>
+    <div class="version">Versión 3 — compilada automáticamente desde el repositorio</div>
+  </section>
+
+  <section class="tarjeta">
+    <h2>Cómo se usa</h2>
+    <ol>
+      <li>Descarga y abre <code>Busqueda.exe</code>. Windows puede mostrar un aviso
+          de SmartScreen la primera vez: <em>Más información → Ejecutar de todas formas</em>.</li>
+      <li>Elige el módulo y pulsa <strong>🌐 Iniciar Chrome (sesión)</strong>.
+          Se abre un Chrome con un perfil propio de la herramienta.</li>
+      <li>En esa ventana inicia sesión en el portal (PAI o ADRES). La sesión queda
+          guardada en ese perfil, así que este paso sólo se repite cuando expire.</li>
+      <li>Selecciona el archivo CSV de códigos. Debe tener las columnas
+          <code>consecutivo</code> y <code>codigo</code>.</li>
+      <li>Escoge una consulta predeterminada o marca <strong>P. Personalizada</strong>
+          y elige campo por campo.</li>
+      <li>Pulsa <strong>▶ Iniciar consulta</strong>. El archivo de salida se guarda
+          junto al ejecutable y se va actualizando registro a registro.</li>
+    </ol>
+  </section>
+
+  <section class="tarjeta">
+    <h2>Módulos</h2>
+    <div class="modulos">
+      <div class="modulo m1">
+        <h3>👶 PAI Menores</h3>
+        <p>Datos básicos, teléfono, dirección, EAPB, datos de madre o cualquier
+           combinación personalizada.</p>
+      </div>
+      <div class="modulo m2">
+        <h3>🧑 PAI Mayores</h3>
+        <p>Datos básicos, teléfono, dirección, EAPB o combinación personalizada.</p>
+      </div>
+      <div class="modulo m3">
+        <h3>🔐 ADRES / Comprobador</h3>
+        <p>Contributivo y BUDA. Se elige qué extraer y con qué columnas; omitir
+           SEXO acelera bastante el proceso.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tarjeta">
+    <div class="aviso">
+      <strong>Manejo de datos.</strong> Los archivos de entrada y salida contienen
+      datos personales sensibles protegidos por la Ley 1581 de 2012. No los subas
+      al repositorio, ni a este sitio, ni a servicios externos. Guárdalos únicamente
+      en los medios autorizados por la entidad y elimínalos cuando cumplan su
+      propósito.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Luis Silva — SISVAN · Integración: Diego A. Ortega — Subred Sur / SDS
+</footer>
+
+</body>
+</html>

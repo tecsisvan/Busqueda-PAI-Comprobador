@@ -1,0 +1,56 @@
+name: Compilar .exe y publicar en Netlify
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+
+  compilar:
+    name: Compilar Busqueda.exe (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Compilar ejecutable
+        run: pyinstaller --onefile --windowed --name Busqueda Busqueda.py
+
+      - name: Guardar el ejecutable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Busqueda-exe
+          path: dist/Busqueda.exe
+          retention-days: 7
+
+  publicar:
+    name: Publicar sitio con la descarga
+    needs: compilar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Recuperar el ejecutable
+        uses: actions/download-artifact@v4
+        with:
+          name: Busqueda-exe
+          path: web/descargas
+
+      - name: Desplegar en Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npm install -g netlify-cli
+          netlify deploy --prod --dir=web \
+            --message "Despliegue automático desde ${GITHUB_SHA::7}"
